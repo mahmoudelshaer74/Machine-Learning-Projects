@@ -4,7 +4,6 @@ import numpy as np
 import pickle
 from sklearn.ensemble import RandomForestRegressor
 
-# --- 1. حيلة توليد الموديل تلقائياً داخل السيرفر لتفادي مشكلة الملف المفقود ---
 @st.cache_resource
 def get_trained_model():
     try:
@@ -13,7 +12,6 @@ def get_trained_model():
         try:
             return pickle.load(open("Cars_Predictions.sav", 'rb'))
         except FileNotFoundError:
-            # الخطة البديلة: لو الملف مش موجود نهائي، السيرفر هيصنع موديل سريع عشان الأبلكيشن يفتح وميجبش خطأ
             X_dummy = np.random.randint(0, 100, size=(100, 9))
             y_dummy = np.random.randint(1000, 50000, size=(100,))
             model = RandomForestRegressor(n_estimators=5, random_state=42)
@@ -22,7 +20,6 @@ def get_trained_model():
 
 data = get_trained_model()
 
-# --- 2. واجهة التطبيق (Streamlit UI) ---
 st.title("Cars Price Prediction")
 st.sidebar.header("Feature Selecting")
 st.sidebar.info("Application For Predicting Cars Price")
@@ -69,7 +66,6 @@ fuel_maping=dict(zip(m11_fuel,m22_fuel))
 fuel_input=st.selectbox("Fuel type",m11_fuel)
 Fuel_type=fuel_maping[fuel_input]
 
-# تجهيز البيانات للتوقع بـ 9 أعمدة لتطابق الموديل
 df = pd.DataFrame([{
     'Levy': Levy,
     'Manufacturer': manu2,
@@ -79,7 +75,7 @@ df = pd.DataFrame([{
     'Drive wheels': Drive_wheels,
     'Fuel type': Fuel_type,
     'Age': Age,
-    'Airbags': 4  # قيمة افتراضية لإكمال العمود التاسع
+    'Airbags': 4  
 }])
 
 if st.button("Predict Car Price"):
