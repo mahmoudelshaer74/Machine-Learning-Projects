@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 
-data = pickle.load(open("05-Car-Price-Prediction-Streamlit/Cars_Predictions.sav", 'rb'))
+data = pickle.load(open("Cars_Predictions.sav", 'rb'))
 st.title("Cars Price Prediction")
 st.sidebar.header("Feature Selecting")
 st.sidebar.info("Application For Predicting Cars Price")
