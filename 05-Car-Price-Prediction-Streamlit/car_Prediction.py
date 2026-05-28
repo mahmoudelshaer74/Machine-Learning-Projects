@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 import pickle
 
-data = pickle.load(open("05-Car-Price-Prediction-Streamlit/Cars_Predictions.sav", 'rb'))st.title("Cars Price Prediction")
+data = pickle.load(open("05-Car-Price-Prediction-Streamlit/Cars_Predictions.sav", 'rb'))
+st.title("Cars Price Prediction")
 st.sidebar.header("Feature Selecting")
 st.sidebar.info("Application For Predicting Cars Price")
 st.image("https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/2020-Chevrolet-Corvette-Stingray/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&width=960")
