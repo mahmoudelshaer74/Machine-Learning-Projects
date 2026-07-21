@@ -222,7 +222,7 @@ streamlit run streamlit_app.py
 - Cloud Deployment
 
 ---
-## stramlit
+## streamlit
 https://mahmoudelshaer74-hjfpnkjuidgtnimfryjxyp.streamlit.app/
 
 ## 👨‍💻 Author
