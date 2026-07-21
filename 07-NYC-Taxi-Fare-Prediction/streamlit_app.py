@@ -27,15 +27,22 @@ from processing import load_data, domain_filter, haversine_distance, calculate_b
 
 st.set_page_config(page_title="NYC Taxi Trip Duration", layout="wide")
 
+# تحديد مسار المجلد الحالي للسكريبت لضمان قراءة الملفات بنجاح دائماً
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 @st.cache_data
-def get_clean_data(file_path="train.csv"):
+def get_clean_data(file_name="train.csv"):
+    file_path = os.path.join(BASE_DIR, file_name)
+    if not os.path.exists(file_path):
+        return None
     df = load_data(file_path)
     return domain_filter(df)
 
 
 @st.cache_resource
-def get_model(model_path="model.joblib"):
+def get_model(model_name="model.joblib"):
+    model_path = os.path.join(BASE_DIR, model_name)
     if not os.path.exists(model_path):
         return None
     return joblib.load(model_path)
@@ -83,10 +90,10 @@ tab_eda, tab_predict = st.tabs(["📊 EDA", "🔮 Predict"])
 
 with tab_eda:
     st.subheader("Exploratory analysis (train.csv required in the app folder)")
-    if not os.path.exists("train.csv"):
+    df = get_clean_data("train.csv")
+    if df is None:
         st.info("Place train.csv next to this app to enable live EDA.")
     else:
-        df = get_clean_data("train.csv")
         col1, col2 = st.columns(2)
         with col1:
             fig, ax = plt.subplots()
